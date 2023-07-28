@@ -73,7 +73,7 @@ void displayRecordsInHash(struct HashType* hashTable)
             struct ListNode* current = hashTable->buckets[i];
             while (current != NULL)
             {
-                printf("Id: %d, Name: %c, Order: %d \n", current->data.id, current->data.name, current->data.order);
+                printf("Id: %d, Name: %c, Order: %d -> ", current->data.id, current->data.name, current->data.order);
                 current = current->next;
             }
             printf("\n");
