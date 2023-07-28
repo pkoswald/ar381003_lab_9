@@ -15,7 +15,7 @@ struct ListNode
     struct ListNode* next;
 };
 
-// Fill out this structure
+// Hash table structure with separate chaining
 struct HashType
 {
     struct ListNode** buckets;
@@ -28,7 +28,7 @@ int hash(int x, int size)
     return x % size;
 }
 
-
+// Inserts a record into the hash table
 void insertRecord(struct HashType* hashTable, struct RecordType record)
 {
     int index = hash(record.id, hashTable->size);
@@ -42,7 +42,8 @@ void insertRecord(struct HashType* hashTable, struct RecordType record)
     }
     newNode->data = record;
     newNode->next = NULL;
-	
+
+    // Insert the node into the appropriate bucket
     if (hashTable->buckets[index] == NULL)
     {
         hashTable->buckets[index] = newNode;
@@ -68,11 +69,11 @@ void displayRecordsInHash(struct HashType* hashTable)
     {
         if (hashTable->buckets[i] != NULL)
         {
-            printf("Index %d -> ", i);
+            printf("Index %d:\n", i);
             struct ListNode* current = hashTable->buckets[i];
             while (current != NULL)
             {
-                printf("%d, %c, %d -> ", current->data.id, current->data.name, current->data.order);
+                printf("Id: %d, Name: %c, Order: %d \n", current->data.id, current->data.name, current->data.order);
                 current = current->next;
             }
             printf("\n");
@@ -116,7 +117,7 @@ int parseData(char* inputFileName, struct RecordType** ppData)
 
 	return dataSz;
 }
-
+// Free memory used by the hash table
 void freeHashTable(struct HashType* hashTable)
 {
     for (int i = 0; i < hashTable->size; ++i)
@@ -137,7 +138,7 @@ int main(void)
 {
     struct RecordType* pRecords;
     int recordSz = 0;
-    int hashSz = 10;
+    int hashSz = 10; // Choose an appropriate hash table size
 
     recordSz = parseData("input.txt", &pRecords);
     if (recordSz <= 0)
@@ -145,7 +146,8 @@ int main(void)
         printf("Error reading data from the input file.\n");
         return 1;
     }
-	
+
+    // Create the hash table
     struct HashType* hashTable = (struct HashType*)malloc(sizeof(struct HashType));
     if (hashTable == NULL)
     {
@@ -161,13 +163,16 @@ int main(void)
         return 1;
     }
 
+    // Insert records into the hash table
     for (int i = 0; i < recordSz; ++i)
     {
         insertRecord(hashTable, pRecords[i]);
     }
-	
+
+    // Display records in the hash table
     displayRecordsInHash(hashTable);
 
+    // Free memory
     freeHashTable(hashTable);
     free(pRecords);
 
