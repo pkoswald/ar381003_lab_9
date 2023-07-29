@@ -138,7 +138,7 @@ int main(void)
 {
     struct RecordType* pRecords;
     int recordSz = 0;
-    int hashSz = 10; // Choose an appropriate hash table size
+    int hashSz = 15;
 
     recordSz = parseData("input.txt", &pRecords);
     if (recordSz <= 0)
