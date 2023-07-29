@@ -18,9 +18,9 @@ struct HashType
 };
 
 // Compute the hash function
-int hash(int x)
+int hash(int x, int size)
 {
-	return x % 15;
+	return x % size;
 }
 
 // parses input file to an integer array
@@ -114,7 +114,7 @@ int main(void)
 	for (int i = 0; i < recordSz; i++)
     {
         struct RecordType *pRecord = pRecords + i;
-        int index = hash(pRecord->order);
+        int index = hash(pRecord->order, 15);
 
         struct HashType *newNode = (struct HashType*)malloc(sizeof(struct HashType));
         if (newNode == NULL)
