@@ -4,9 +4,9 @@
 // RecordType
 struct RecordType
 {
-	int		id;
+	int	id;
 	char	name;
-	int		order; 
+	int	order; 
 };
 
 // Fill out this structure
@@ -88,7 +88,7 @@ void displayRecordsInHash(struct HashType *pHashArray, int hashSz)
 
 			while (current != NULL)
 			{
-				printf("ID: %d Name: %c Order: %d -> \n", current->records.id, current->records.name, current->records.order);
+				printf("ID: %d Name: %c Order: %d -> ", current->records.id, current->records.name, current->records.order);
 				current = current->next;
 			}
 
